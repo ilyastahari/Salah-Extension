@@ -1,8 +1,8 @@
 
 {
     "manifest_version": 3,
-    "name": "Salah-Extension",
-    "description": "Salah time extension for Chrome",
+    "name": "Salah Times",
+    "description": "A useful chrome extension which tells you the salah times for the day.",
     "version": "1.0",
     "icons": {
         "16": "salah-icon.png",
@@ -12,5 +12,12 @@
     "action": {
         "default_title": "Click Me",
         "default_popup": "popup.html"
+    },
+    "permissions": [
+        "tabs",
+        "bookmarks"
+    ],
+    "background": {
+        "service_worker": "background.js"
     }
 }
