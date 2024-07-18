@@ -10,7 +10,7 @@
         "128": "salah-icon.png"
     },
     "action": {
-        "default_title": "Salah Times",
+        "default_title": "Salah Times Today",
         "default_popup": "popup.html"
     },
     "permissions": [

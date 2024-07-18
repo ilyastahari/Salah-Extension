@@ -16,10 +16,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           sendResponse({ success: true, timings });
         })
         .catch(error => {
-          console.error('Error fetching prayer times:', error);
-          sendResponse({ success: false, error: 'Failed to fetch prayer times.' });
+          console.error('Error fetching salah times:', error);
+          sendResponse({ success: false, error: 'Failed to fetch salah times.' });
         });
   
-      return true; // Indicates that the response is asynchronous
+      return true;
     }
   });
