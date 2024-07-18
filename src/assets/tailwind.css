@@ -3,7 +3,21 @@
 @tailwind utilities;
 
 body {
-    height: 400px;
-    width: 400px;
+    margin: 0;
+    height: 225px;
+    width: 200px;
     background-color: blanchedalmond;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
+}
+
+#container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
 }
