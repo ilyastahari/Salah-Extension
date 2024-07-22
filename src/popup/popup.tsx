@@ -15,7 +15,6 @@ const Popup = () => {
   const [fetched, setFetched] = useState<boolean>(false);
 
   useEffect(() => {
-    // Retrieve the stored city name when the component mounts
     chrome.storage.local.get(['city'], (result) => {
       if (result.city) {
         setCity(result.city);
@@ -31,7 +30,6 @@ const Popup = () => {
       return;
     }
 
-    // Store the city name
     chrome.storage.local.set({ city: cityToFetch });
 
     chrome.runtime.sendMessage({ action: 'fetchSalahTimes', city: cityToFetch }, (response) => {
@@ -88,9 +86,7 @@ const Popup = () => {
             onChange={(e) => setCity(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="Enter city name"
-            className="w-full px-2 py-1 mb-2 border border-gray-300 rounded"
           />
-          {error && <p className="text-red-500 mt-2 text-center">{error}</p>}
         </>
       )}
       {salahTimes.length > 0 && (
@@ -111,6 +107,7 @@ const Popup = () => {
               ))}
             </tbody>
           </table>
+          <br></br>
           <div className="mt-4">
             <input
               type="text"
@@ -118,7 +115,6 @@ const Popup = () => {
               onChange={(e) => setNewCity(e.target.value)}
               onKeyPress={handleNewCityKeyPress}
               placeholder="Enter new city"
-              className="w-full px-2 py-1 mb-2 border border-gray-300 rounded"
             />
           </div>
         </div>
