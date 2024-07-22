@@ -1,12 +1,8 @@
-const path = require('path')
-
+const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
-
-const HtmlPlugin = require('html-webpack-plugin')
-
-const tailwindcss = require('tailwindcss')
-
-const autoprefixer = require('autoprefixer')
+const HtmlPlugin = require('html-webpack-plugin');
+const tailwindcss = require('tailwindcss');
+const autoprefixer = require('autoprefixer');
 
 module.exports = {
     entry: {
@@ -16,55 +12,57 @@ module.exports = {
     module: {
         rules: [
             {
-                use: "ts-loader",
-                test: /\.tsx$/,
-                exclude: /node_modules/
+                test: /\.tsx?$/, // Match both .ts and .tsx files
+                use: 'ts-loader',
+                exclude: /node_modules/,
             },
             {
-                use : ['style-loader', 'css-loader', {
-                    loader: 'postcss-loader',
-                    options: {
-                        postcssOptions: {
-                            ident: 'ppostcss',
-                            plugins: [tailwindcss, autoprefixer],
-                        },
-                    }
-                }],
                 test: /\.css$/i,
-            }
-        ]
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            postcssOptions: {
+                                ident: 'postcss',
+                                plugins: [tailwindcss, autoprefixer],
+                            },
+                        },
+                    },
+                ],
+            },
+        ],
     },
-
     plugins: [
         new CopyPlugin({
             patterns: [
-              { 
-                from: path.resolve('src/static'), 
-                to: path.resolve('dist') 
-              },
+                {
+                    from: path.resolve('src/static'),
+                    to: path.resolve('dist')
+                },
             ],
-          }),
-            ...getHtmlPlugins([
-            'popup'
-        ])
+        }),
+        ...getHtmlPlugins(['popup']),
     ],
     resolve: {
-        extensions: ['.tsx', '.ts', '.js']
+        extensions: ['.tsx', '.ts', '.js'],
     },
     output: {
-        filename: '[name].js'
+        filename: '[name].js',
+        path: path.resolve(__dirname, 'dist'),
     },
     optimization: {
         splitChunks: {
-            chunks: 'all'
+            chunks: 'all',
         },
     },
-}
+};
 
 function getHtmlPlugins(chunks) {
     return chunks.map(chunk => new HtmlPlugin({
         title: 'Salah Times',
         filename: `${chunk}.html`,
-        chunks: [chunk]
-    }))
+        chunks: [chunk],
+    }));
 }
