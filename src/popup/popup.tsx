@@ -77,8 +77,9 @@ const Popup = () => {
   return (
     <div className="flex flex-col justify-center items-center h-full w-full text-white content-lower">
       {!fetched && (
-        <div className="text-center centered-container">
+        <div className="flex flex-col justify-center items-center text-center">
           <h1 className="mb-4">As salamu alaykum!</h1>
+          <br></br><br></br>
           <input
             className="input-city"
             type="text"
