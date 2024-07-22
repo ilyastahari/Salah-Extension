@@ -75,41 +75,39 @@ const Popup = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex flex-col justify-center items-center h-full w-full text-white content-lower">
       {!fetched && (
-        <>
-          <h1 className="text-center mb-4">As salamu alaykum!</h1>
-          <br></br>
+        <div className="text-center centered-container">
+          <h1 className="mb-4">As salamu alaykum!</h1>
           <input
+            className="input-city"
             type="text"
             value={city}
             onChange={(e) => setCity(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="Enter city name"
           />
-        </>
+        </div>
       )}
       {salahTimes.length > 0 && (
         <div className="overflow-y-auto w-full mt-2">
           <table className="w-full divide-y divide-gray-200 text-center">
-            <thead>
-              <tr>
-                <th className="px-4 py-2">Name</th>
-                <th className="px-4 py-2">Time</th>
-              </tr>
-            </thead>
             <tbody>
               {salahTimes.map((salahInfo, index) => (
-                <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
-                  <td className="px-4 py-2 whitespace-nowrap">{salahInfo.name}</td>
-                  <td className="px-4 py-2 whitespace-nowrap">{salahInfo.time}</td>
+                <tr
+                  key={index}
+                  className={`animate-fadeIn ${index % 2 === 0}`}
+                  style={{ animationDelay: `${index * 0.25}s`, opacity: 0 }}
+                >
+                  <td className="table-cell text-brown">{salahInfo.name}</td>
+                  <td className="table-cell text-brown">{salahInfo.time}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <br></br>
-          <div className="mt-4">
+          <div className="mt-4 centered-container">
             <input
+              className="input-new-city"
               type="text"
               value={newCity}
               onChange={(e) => setNewCity(e.target.value)}
