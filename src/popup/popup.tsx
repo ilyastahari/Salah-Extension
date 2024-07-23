@@ -17,11 +17,16 @@ const Popup = () => {
   useEffect(() => {
     chrome.storage.local.get(['city'], (result) => {
       if (result.city) {
-        setCity(result.city);
-        fetchSalahTimes(result.city);
+        const capitalizedCity = capitalizeCity(result.city);
+        setCity(capitalizedCity);
+        fetchSalahTimes(capitalizedCity);
       }
     });
   }, []);
+
+  const capitalizeCity = (str: string) => {
+    return str.replace(/\b\w/g, (char) => char.toUpperCase());
+  };
 
   const fetchSalahTimes = (cityName?: string) => {
     const cityToFetch = cityName || city;
@@ -30,9 +35,10 @@ const Popup = () => {
       return;
     }
 
-    chrome.storage.local.set({ city: cityToFetch });
+    const capitalizedCity = capitalizeCity(cityToFetch);
+    chrome.storage.local.set({ city: capitalizedCity });
 
-    chrome.runtime.sendMessage({ action: 'fetchSalahTimes', city: cityToFetch }, (response) => {
+    chrome.runtime.sendMessage({ action: 'fetchSalahTimes', city: capitalizedCity }, (response) => {
       if (response.success) {
         const timings = response.timings;
         const salahTimesArray = [
@@ -66,8 +72,9 @@ const Popup = () => {
 
   const updateCity = () => {
     if (newCity.trim() !== '') {
-      setCity(newCity);
-      fetchSalahTimes(newCity);
+      const capitalizedNewCity = capitalizeCity(newCity);
+      setCity(capitalizedNewCity);
+      fetchSalahTimes(capitalizedNewCity);
       setNewCity('');
     } else {
       setError('Please enter a valid city name.');
@@ -79,25 +86,26 @@ const Popup = () => {
       {!fetched && (
         <div className="flex flex-col justify-center items-center text-center">
           <h1 className="mb-4">As salamu alaykum!</h1>
-          <br></br><br></br>
+          <br /><br />
           <input
             className="input-city"
             type="text"
             value={city}
             onChange={(e) => setCity(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Enter city name"
+            placeholder="Enter a city name"
           />
         </div>
       )}
       {salahTimes.length > 0 && (
-        <div className="overflow-y-auto w-full mt-2">
+        <div className="overflow-y-auto w-full mt-2 text-center">
+          <h2 className="text-xl font-bold mb-2 city-name">{city}</h2>
           <table className="w-full divide-y divide-gray-200 text-center">
             <tbody>
               {salahTimes.map((salahInfo, index) => (
                 <tr
                   key={index}
-                  className={`animate-fadeIn ${index % 2 === 0}`}
+                  className={`animate-fadeIn ${index % 2 === 0 ? 'bg-gray-100' : ''}`}
                   style={{ animationDelay: `${index * 0.25}s`, opacity: 0 }}
                 >
                   <td className="table-cell text-brown">{salahInfo.name}</td>
@@ -113,7 +121,7 @@ const Popup = () => {
               value={newCity}
               onChange={(e) => setNewCity(e.target.value)}
               onKeyPress={handleNewCityKeyPress}
-              placeholder="Enter new city"
+              placeholder="Enter a new city"
             />
           </div>
         </div>
