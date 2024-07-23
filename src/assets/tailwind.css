@@ -53,7 +53,7 @@ body {
 .city-name {
     text-align: center;
     position: relative;
-    top: 3px;
+    top: -1.75px;
 }
 
 .table-cell {
