@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 body {
     margin: 0;
     height: 240px;
@@ -14,6 +16,7 @@ body {
     background-image: url('/src/static/salah-bg.png');
     background-size: cover;
     background-position: center;
+    font-family: 'Roboto', sans-serif;
 }
 
 @keyframes fadeIn {
@@ -35,12 +38,13 @@ body {
     @apply p-2 rounded bg-white text-black;
     width: 100px;
     padding: 0.5px;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
 }
 
 .centered-container {
     @apply flex justify-center items-center;
 }
-
 
 .text-brown {
     color: #423232; 
@@ -51,18 +55,20 @@ body {
 }
 
 .city-name {
+    color: #423232;
     text-align: center;
     position: relative;
-    top: -1.75px;
+    top: 1.8px;
+    font-family: 'Roboto', sans-serif;
 }
 
 .table-cell {
     transform: scale(1);
     transition: transform 0.2s ease-in-out;
     transform-origin: center;
-  }
-  
-  .table-cell:hover {
+    font-family: 'Roboto', sans-serif;
+}
+
+.table-cell:hover {
     transform: scale(1.15);
-  }
-  
+}
